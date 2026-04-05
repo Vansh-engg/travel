@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Compass, Menu, Phone, X } from 'lucide-react';
 
@@ -6,9 +6,19 @@ const links = ['Journeys', 'Why Us', 'Stories', 'Contact'];
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const mobileScrollTimerRef = useRef(null);
 
   const closeMenu = () => setMenuOpen(false);
   const getTargetId = (label) => label.toLowerCase().replace(/\s+/g, '-');
+
+  useEffect(() => {
+    return () => {
+      if (mobileScrollTimerRef.current) {
+        window.clearTimeout(mobileScrollTimerRef.current);
+      }
+    };
+  }, []);
+
   const scrollToSection = (targetId) => {
     const target = document.getElementById(targetId);
 
@@ -16,7 +26,7 @@ const Navbar = () => {
       return;
     }
 
-    const navbarOffset = window.innerWidth >= 1024 ? 120 : 104;
+    const navbarOffset = window.innerWidth >= 768 ? 112 : 88;
     const targetTop = target.getBoundingClientRect().top + window.scrollY - navbarOffset;
 
     window.history.replaceState(null, '', `#${targetId}`);
@@ -28,7 +38,21 @@ const Navbar = () => {
 
   const handleNavClick = (event, targetId) => {
     event.preventDefault();
-    closeMenu();
+
+    if (window.innerWidth < 768 && menuOpen) {
+      closeMenu();
+
+      if (mobileScrollTimerRef.current) {
+        window.clearTimeout(mobileScrollTimerRef.current);
+      }
+
+      mobileScrollTimerRef.current = window.setTimeout(() => {
+        scrollToSection(targetId);
+      }, 180);
+
+      return;
+    }
+
     scrollToSection(targetId);
   };
 
@@ -46,11 +70,12 @@ const Navbar = () => {
               <Compass size={18} />
             </div>
             <div className="min-w-0">
-              <p className="truncate text-[0.62rem] font-semibold uppercase tracking-[0.24em] text-white/70 sm:text-[0.68rem] sm:tracking-[0.3em]">
-                Bharat Escapes
+              <p className="brand-wordmark truncate text-base leading-none text-white sm:text-lg">
+                <span className="text-white">Pravah </span>
+                <span className="text-[var(--orange)]">Holidays</span>
               </p>
-              <p className="truncate text-sm font-bold tracking-tight text-white sm:text-base">
-                Travel atelier for India
+              <p className="truncate pt-1 text-[0.72rem] font-semibold uppercase tracking-[0.2em] text-white/72 sm:text-[0.76rem]">
+                Survive on dreams
               </p>
             </div>
           </a>
@@ -94,6 +119,7 @@ const Navbar = () => {
               initial={{ opacity: 0, height: 0, marginTop: 0 }}
               animate={{ opacity: 1, height: 'auto', marginTop: 16 }}
               exit={{ opacity: 0, height: 0, marginTop: 0 }}
+              transition={{ duration: 0.18, ease: 'easeOut' }}
               className="overflow-hidden md:hidden"
             >
               <div className="rounded-3xl border border-white/10 bg-slate-900/95 p-3 shadow-lg">

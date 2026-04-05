@@ -166,7 +166,7 @@ const swipeConfidenceThreshold = 90;
 
 const getWhatsappTripLink = (tripTitle) =>
   `https://wa.me/919876543210?text=${encodeURIComponent(
-    `Hi Bharat Escapes, I want details of the ${tripTitle} trip.`
+    `Hi Pravah Holidays, I want details of the ${tripTitle} trip.`
   )}`;
 
 const Home = () => {
@@ -245,13 +245,13 @@ const Home = () => {
               <ChevronRight size={24} />
             </button>
 
-            <div className="relative mx-auto flex h-[520px] w-full max-w-[90rem] items-center justify-center [perspective:1800px] sm:h-[600px] lg:h-[640px]">
+            <div className="relative mx-auto flex h-[520px] w-full max-w-[90rem] items-center justify-center [perspective:1600px] sm:h-[600px] lg:h-[640px]">
               {visibleCards.map((card) => {
                 const isActive = card.offset === 0;
-                const rotateY = card.offset * -10;
-                const rotateZ = card.offset * 1.5;
-                const scale = isActive ? 1.08 : Math.max(0.72, 1 - Math.abs(card.offset) * 0.12);
-                const opacity = isActive ? 1 : Math.max(0.22, 0.78 - Math.abs(card.offset) * 0.18);
+                const rotateY = card.offset * -8;
+                const rotateZ = card.offset * 1.1;
+                const scale = isActive ? 1.08 : Math.max(0.78, 1 - Math.abs(card.offset) * 0.1);
+                const opacity = isActive ? 1 : Math.max(0.3, 0.82 - Math.abs(card.offset) * 0.16);
 
                 return (
                   <motion.div
@@ -271,7 +271,7 @@ const Home = () => {
                           }
                         : undefined
                     }
-                    transition={{ duration: 0.78, ease: [0.25, 1, 0.5, 1] }}
+                    transition={{ duration: 0.56, ease: [0.22, 1, 0.36, 1] }}
                     animate={{
                       x:
                         card.offset === 0
@@ -279,12 +279,12 @@ const Home = () => {
                           : `calc(${card.offset} * clamp(4rem, 18vw, 18rem))`,
                       scale,
                       opacity,
-                      y: isActive ? -18 : 12,
+                      y: isActive ? -14 : 10,
                       rotateY,
                       rotateZ,
                       zIndex: 10 - Math.abs(card.offset),
                     }}
-                    className={`group absolute left-1/2 top-1/2 h-[420px] w-[292px] -translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-[24px] border border-white/12 shadow-[0_24px_80px_rgba(2,6,23,0.55)] sm:h-[470px] sm:w-[326px] lg:h-[500px] lg:w-[338px] ${
+                    className={`group absolute left-1/2 top-1/2 h-[420px] w-[292px] -translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-[24px] border border-white/12 shadow-[0_24px_80px_rgba(2,6,23,0.55)] will-change-transform sm:h-[470px] sm:w-[326px] lg:h-[500px] lg:w-[338px] ${
                       isActive ? 'cursor-pointer' : 'pointer-events-none'
                     }`}
                     role={isActive ? 'link' : undefined}
@@ -292,11 +292,11 @@ const Home = () => {
                     aria-label={isActive ? `Open WhatsApp chat for ${card.title}` : undefined}
                     style={{
                       transformStyle: 'preserve-3d',
-                      filter: isActive ? 'none' : 'blur(1.3px) saturate(0.8)',
+                      backfaceVisibility: 'hidden',
                     }}
                   >
                     <div
-                      className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
+                      className="absolute inset-0 bg-cover bg-center transition-transform duration-500 will-change-transform group-hover:scale-[1.03]"
                       style={{ backgroundImage: `url(${card.image})` }}
                     />
                     <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(2,6,23,0.08)_0%,rgba(2,6,23,0.2)_34%,rgba(2,6,23,0.88)_100%)]" />
@@ -391,10 +391,10 @@ const Home = () => {
                 Why choose us
               </p>
               <h2 className="text-3xl font-black tracking-[-0.04em] text-white sm:text-5xl">
-                Why choose Bharat Travels for your next journey
+                Why choose Pravah Holidays for your next journey
               </h2>
               <p className="text-base leading-7 text-white/72 sm:text-lg sm:leading-8">
-                At Bharat Travels, we bring years of expertise in crafting memorable journeys across
+                At Pravah Holidays, we bring years of expertise in crafting memorable journeys across
                 India and beyond. Thousands of happy travelers trust us for safe, reliable and
                 well-planned trips.
               </p>
@@ -438,7 +438,7 @@ const Home = () => {
               </h2>
             </div>
             <p className="max-w-2xl text-base leading-7 text-white/68 sm:text-lg sm:leading-8">
-              Real feedback from couples, families and adventure seekers who booked their journeys with Bharat Travels.
+              Real feedback from couples, families and adventure seekers who booked their journeys with Pravah Holidays.
             </p>
           </div>
 
@@ -531,7 +531,7 @@ const Home = () => {
             {[
               ['Call us', '+91 98765 43210', PhoneCall, 'tel:+919876543210'],
               ['Email', 'hello@bharatescapes.com', Mail, 'mailto:hello@bharatescapes.com'],
-              ['Studio', 'Jaipur and Goa', MapPinned, null],
+              ['Office', 'Navi Mumbai', MapPinned, null],
               ['Timing', 'Mon to Sat, 9 AM to 8 PM', Clock3, null],
             ].map(([label, value, Icon, href]) => (
               <div
@@ -564,9 +564,12 @@ const Home = () => {
         <div className="mx-auto max-w-7xl border-t border-white/12 pt-8">
           <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
             <div className="space-y-3">
-              <p className="text-lg font-bold tracking-tight">Bharat Escapes</p>
+              <p className="brand-wordmark text-[1.35rem] leading-none">
+                <span className="text-white">Pravah </span>
+                <span className="text-[var(--orange)]">Holidays</span>
+              </p>
               <p className="max-w-xs text-sm leading-6 text-white/62">
-                Premium travel planning for honeymoons, family holidays, weekend escapes and adventure trips.
+                Survive on dreams with premium travel planning for honeymoons, family holidays, weekend escapes and adventure trips.
               </p>
             </div>
 
@@ -610,13 +613,13 @@ const Home = () => {
                   Mon to Sat, 9 AM to 8 PM
                 </p>
                 <p>Sunday: By appointment</p>
-                <p>Jaipur and Goa studio support</p>
+                <p>Navi Mumbai studio support</p>
               </div>
             </div>
           </div>
 
           <div className="mt-8 flex flex-col gap-3 border-t border-white/10 pt-5 text-sm text-white/54 md:flex-row md:items-center md:justify-between">
-            <p>Copyright {new Date().getFullYear()} Bharat Escapes. All rights reserved.</p>
+            <p>Copyright {new Date().getFullYear()} Pravah Holidays. All rights reserved.</p>
             <div className="flex flex-wrap items-center gap-4">
               <a href="#journeys" className="hover:text-white">Trips</a>
               <a href="#why-us" className="hover:text-white">Reviews</a>
