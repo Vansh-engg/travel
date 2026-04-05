@@ -1,0 +1,41 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Poppins", sans-serif;
+}
+
+:root {
+  font-family: "Poppins", sans-serif;
+  color: #0f172a;
+  background: #fffaf0;
+  --sand: #fffaf0;
+  --saffron: #ffbe3d;
+  --orange: #ff7a30;
+  --ocean-blue: #0e70ad;
+}
+
+html {
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+}
+
+body {
+  min-width: 320px;
+  background: var(--sand);
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+body::-webkit-scrollbar,
+html::-webkit-scrollbar {
+  display: none;
+}
+
+a,
+button {
+  -webkit-tap-highlight-color: transparent;
+}
+
+::selection {
+  background: rgba(255, 122, 48, 0.22);
+}
